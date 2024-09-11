@@ -12,7 +12,7 @@ urlpatterns = [
     path("delete_recipe/<id>/", delete_recipe, name='delete_recipe'),
     path("update_recipe/<id>/", update_recipe, name='update_recipe'),
     path("Login/", login_page, name='login_page'),
-    path("register/",resister_page, name='resister_page'),
+    path("register/",register_page, name='resister_page'),
     path("logout_page/", logout_page, name='logout_page')
 
 ]
