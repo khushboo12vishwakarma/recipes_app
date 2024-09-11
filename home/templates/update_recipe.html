@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block start %}
+<div class="container mt-5">
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+<!--        {% csrf_token %} to check server same origin or not-->
+<!--         method="post"-> transfer data frontend to backend
+when we want to upload file fronted to backed then we write this -> enctype="multipart/form-data"-->
+        <h2>update Recipes</h2>
+        <hr>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label"> Recipe name</label>
+    <input name="recipe_name" value="{{recipe.recipe_name}}" required type="text" class="form-control" >
+
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Recipe description</label>
+    <textarea name="recipe_description" value=""  class="form-control" required>{{recipe.recipe_description }}</textarea>
+  </div>
+
+     <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Recipe image</label>
+   <input name=" recipe_image" type="file" class="form-control" >
+     </div>
+
+  <button type="submit" class="btn btn-success">update Recipes</button>
+</form>
+{% endblock %}
