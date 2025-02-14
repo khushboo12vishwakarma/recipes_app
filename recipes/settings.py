@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-ob8&*awtsiy3334b(62^@6gq)$*v$4mrx@eqsa!5_*_nf@7!f8
 DEBUG = True
 
 
-ALLOWED_HOSTS = ["recipes-app-qu3g.onrender.com"]
+# ALLOWED_HOSTS = ["recipes-app-qu3g.onrender.com"]
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition

@@ -9,6 +9,7 @@ class Recipe(models.Model):
     recipe_description = models.TextField()
     recipe_image_base64 = models.TextField(null=True, blank=True)  # Store base64 string
     recipe_views_count = models.IntegerField(default=1)
+    ingredients = models.TextField(blank=True, null=True)
 
     def save_base64_image(self, image_file):
         if image_file:

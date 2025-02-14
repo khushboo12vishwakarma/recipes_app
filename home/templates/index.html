@@ -17,10 +17,14 @@
             <textarea name="recipe_description" class="form-control" required></textarea>
         </div>
         <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Recipe Ingredients</label>
+            <textarea name="ingredients" class="form-control" required></textarea>
+        </div>
+        <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Recipe image</label>
             <input name="recipe_image" type="file" class="form-control">
         </div>
-        <button type="submit" class="btn btn-success">Add Recipes</button>
+        <button type="submit" class="btn btn-primary">Add Recipes</button>
     </form>
 
     <hr>
@@ -43,6 +47,9 @@
         }
     </style>
 
+
+<body>
+
     <table class="table mt-5">
         <thead>
             <tr>
@@ -51,6 +58,7 @@
                 <th scope="col">Recipe description</th>
                 <th scope="col">Recipe image</th>
                 <th scope="col">Action</th>
+
             </tr>
         </thead>
         <tbody>
@@ -58,24 +66,24 @@
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ recipe.recipe_name }}</td>
-                <td>{{ recipe.recipe_description }}</td>
+                <td>{{ recipe.recipe_description|truncatechars:200 }}</td>
                 <td>
                     {% if recipe.recipe_image_base64 %}
-                    <!-- Display base64 encoded image -->
-                    <img src="data:image/jpeg;base64,{{ recipe.recipe_image_base64 }}" style="height:100px" alt="Recipe Image">
+                        <img src="data:image/jpeg;base64,{{ recipe.recipe_image_base64 }}" style="height:100px" alt="Recipe Image">
                     {% else %}
-                    <span>No image available</span>
+                        <span>No image available</span>
                     {% endif %}
                 </td>
                 <td>
-                    <a href="/delete_recipe/{{ recipe.id }}" class="btn btn-danger">Delete</a>
-                    <a href="/update_recipe/{{ recipe.id }}" class="btn btn-success m-1">Update</a>
+                    <a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'update_recipe' recipe.id %}" class="btn btn-success m-1">Update</a>
+                    <a href="{% url 'detailed_description' recipe.id %}" class="btn btn-primary m-1">Detailed Description</a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+</body>
 
-</div>
 
 {% endblock %}

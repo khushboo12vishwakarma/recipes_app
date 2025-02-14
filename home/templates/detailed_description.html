@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block start %}
+<div class="container mt-5 ">
+    <h2>{{ recipe.name }}</h2>
+   {% if recipe.recipe_image_base64 %}
+    <img src="data:image/jpeg;base64,{{ recipe.recipe_image_base64 }}" style="height:350px" alt="Recipe Image">
+   {% else %}
+    <p>No image available</p>
+   {% endif %}
+
+<!--    <p><strong>Description:</strong>{{ recipe.recipe_description.splitlines}}</p>-->
+
+    {% if recipe.ingredients %}
+        <h4>Ingredients:</h4>
+        <ul>
+            {% for ingredient in recipe.ingredients.splitlines %}
+                <li>{{ ingredient }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p><em>No ingredients provided.</em></p>
+    {% endif %}
+
+
+    {% if recipe.recipe_description %}
+    <p><strong>Description:</strong></p>
+    <ul>
+        {% for line in recipe.recipe_description.splitlines %}
+            {% if line.strip %}  {# Ignore blank lines #}
+                {% if line|lower|slice:":5" == "step " %}
+                    <li><strong>{{ line }}</strong></li>  {# Add '*' before headings #}
+                {% else %}
+                    <p>{{ line }}</p> {# Normal text as paragraph, not a list item #}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% else %}
+    <p><em>No description provided.</em></p>
+{% endif %}
+
+
+    <a href="{% url 'recipe' %}" class="btn btn-primary">Back to Recipes</a>
+</div>
+{% endblock %}

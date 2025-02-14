@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Recipe
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -15,9 +15,11 @@ def recipe(request):
         recipe_image = request.FILES.get('recipe_image')
         recipe_name = data.get('recipe_name')
         recipe_description = data.get('recipe_description')
+        ingredients = data.get('ingredients')
 
         recipe_obj.recipe_name = recipe_name
         recipe_obj.recipe_description = recipe_description
+        recipe_obj.ingredients = ingredients
 
         # Convert and save the base64 string of the image
         if recipe_image:
@@ -47,7 +49,7 @@ def update_recipe(request, id):
         recipe_description = data.get('recipe_description')
 
         queryset.recipe_name = recipe_name
-        queryset.recipe_description = recipe_description
+        queryset.recipe_description=recipe_description
 
         # Convert and save the base64 string if a new image is uploaded
         if recipe_image:
@@ -117,3 +119,26 @@ def register_page(request):
         return redirect('/register/')
 
     return render(request, 'register.html')
+
+def detailed_description(request,id):
+    recipe = Recipe.objects.get(id=id)
+    image_url = None
+
+    if recipe.recipe_image_base64:
+        image_url = f"data:image/jpeg;base64,{recipe.recipe_image_base64}"
+
+    context = {  # ✅ Fixed indentation
+        'recipe': recipe,
+        'image_url': image_url,
+    }
+
+    return render(request, 'detailed_description.html', context)  # ✅ Corrected return indentation
+
+
+
+
+
+
+
+    # recipe = get_object_or_404(Recipe, id=id)
+    # print(recipe.image.url if recipe.image else "No image available")

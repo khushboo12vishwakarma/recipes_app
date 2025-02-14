@@ -10,7 +10,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("", recipe, name='recipe'),
     path("delete_recipe/<id>/", delete_recipe, name='delete_recipe'),
-    path("update_recipe/<id>/", update_recipe, name='update_recipe'),
+    path('update_recipe/<id>/',update_recipe, name='update_recipe'),
+    path("detailed_description/<id>/", detailed_description, name="detailed_description"),
+
     path("Login/", login_page, name='login_page'),
     path("register/",register_page, name='resister_page'),
     path("logout_page/", logout_page, name='logout_page')
